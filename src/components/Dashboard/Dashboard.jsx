@@ -1,28 +1,33 @@
-import { Grid } from "@mui/material";
-import React, { useEffect } from "react";
-import { redirect, useLoaderData } from "react-router-dom";
-import { useUpdateUser } from "../../contexts/UserContext";
+import { Box, CssBaseline } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { redirect, useLoaderData, useNavigate } from "react-router-dom";
 import UsersProvider from "../../contexts/UsersContext";
+import { handleException } from "../../utils/helper";
 import { getRoleMenuQuery, profileQuery } from "../../http/queries";
 import DashboardMain from "./DashboardMain";
+import DashboardNavbar from "./DashboardNavbar";
 import DashboardSidebar from "./DashboardSidebar";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const loader = queryClient => async () => {
   try {
+    const query1 = profileQuery();
     let profile =
-      queryClient.getQueryData("profile") ??
-      (await queryClient.fetchQuery(profileQuery()));
+      queryClient.getQueryData(query1.queryKey) ??
+      (await queryClient.fetchQuery(query1));
 
     const roleId = profile?.data?.Role?.Id;
+    const query2 = getRoleMenuQuery(roleId);
     let menus =
-      queryClient.getQueryData("menu") ??
-      (await queryClient.fetchQuery(getRoleMenuQuery(roleId)));
-
+      queryClient.getQueryData(query2.queryKey) ??
+      (await queryClient.fetchQuery(query2));
     return {
       profile,
       menus,
     };
   } catch (e) {
+    handleException(e);
     if (e?.response?.status === 401) {
       return redirect("/login");
     }
@@ -35,31 +40,58 @@ export const action =
   async ({ request }) => {
     try {
       localStorage.setItem("token", " ");
-      queryClient.setQueryData("user", null);
+      queryClient.clear();
       return redirect("/login");
     } catch (e) {
+      handleException(e);
       return e;
     }
   };
 
 const Dashboard = () => {
-  const {
-    profile: { data: user },
-    menus: { data: menus },
-  } = useLoaderData();
-  const updateUser = useUpdateUser();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    updateUser(user);
-  }, [user, updateUser]);
+  const { data: data1, isLoading, error } = useQuery(profileQuery());
+  const {
+    data: data2,
+    isLoading: roleMenuIsLoading,
+    fetchStatus,
+    status,
+  } = useQuery(getRoleMenuQuery(data1?.data?.Role?.Id));
+
+  const drawerWidth = 240;
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  if (error?.response?.status === 401) {
+    queryClient.clear();
+    navigate("/login");
+  }
 
   return (
-    <Grid container>
+    <Box sx={{ display: "flex" }}>
       <UsersProvider>
-        <DashboardSidebar menus={menus} />
-        <DashboardMain />
+        <CssBaseline />
+        <DashboardNavbar
+          user={data1?.data ?? []}
+          drawerWidth={drawerWidth}
+          handleDrawerToggle={handleDrawerToggle}
+        />
+        <DashboardSidebar
+          menus={data2?.data ?? []}
+          drawerWidth={drawerWidth}
+          handleDrawerToggle={handleDrawerToggle}
+          mobileOpen={mobileOpen}
+          loading={roleMenuIsLoading}
+        />
+        <DashboardMain drawerWidth={drawerWidth} />
+        <ReactQueryDevtools position="bottom-right" />
       </UsersProvider>
-    </Grid>
+    </Box>
   );
 };
 

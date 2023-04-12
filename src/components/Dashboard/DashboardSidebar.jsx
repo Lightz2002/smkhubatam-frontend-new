@@ -1,23 +1,61 @@
-import { Grid, Stack, useTheme } from "@mui/material";
+import { useTheme, Box, Divider, Drawer } from "@mui/material";
 import DashboardSidebarMenu from "./DashboardSidebarMenu";
 import DashboardSidebarTop from "./DashboardSidebarTop";
 
-function DashboardSidebar({ menus }) {
+function DashboardSidebar({
+  menus,
+  window,
+  drawerWidth,
+  handleDrawerToggle,
+  mobileOpen,
+  loading,
+}) {
   const theme = useTheme();
 
+  const drawer = (
+    <div>
+      <DashboardSidebarTop />
+      <Divider />
+      <DashboardSidebarMenu menus={menus} loading={loading} />
+    </div>
+  );
+
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
   return (
-    <Grid item xs={2}>
-      <Stack
-        direction="column"
+    <Box
+      component="nav"
+      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      aria-label="mailbox folders"
+    >
+      {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+      <Drawer
+        container={container}
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
         sx={{
-          minHeight: "100vh",
-          backgroundColor: theme.palette.bg.main,
+          display: { xs: "block", sm: "none" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
         }}
       >
-        <DashboardSidebarTop />
-        <DashboardSidebarMenu menus={menus} />
-      </Stack>
-    </Grid>
+        {drawer}
+      </Drawer>
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: { xs: "none", sm: "block" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+        }}
+        open
+      >
+        {drawer}
+      </Drawer>
+    </Box>
   );
 }
+
 export default DashboardSidebar;
