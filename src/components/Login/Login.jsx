@@ -10,13 +10,18 @@ import React, { useEffect, useState } from "react";
 import { Form, redirect, useActionData } from "react-router-dom";
 import { login } from "../../http/api";
 import { profileQuery } from "../../http/queries";
+import { useQuery } from "@tanstack/react-query";
 
 export const loader = queryClient => async () => {
   try {
     let query = profileQuery();
-    console.log(queryClient.getQueryData());
     let data =
-      queryClient.getQueryData() ?? (await queryClient.fetchQuery(query));
+      queryClient.getQueryData(query.queryKey) ??
+      (await queryClient.fetchQuery(query));
+
+    if (!data) {
+      return [];
+    }
 
     if (data?.status === 200) {
       return redirect("/");
@@ -65,6 +70,7 @@ const Login = () => {
   let errors = useActionData();
   const theme = useTheme();
   const [openAlert, setOpenAlert] = useState(false);
+  const { data } = useQuery(profileQuery());
 
   const closeAlert = () => {
     errors = {};
