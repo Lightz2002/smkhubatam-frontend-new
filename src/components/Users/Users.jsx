@@ -1,35 +1,53 @@
-import { Grid, Typography } from "@mui/material";
-import React, { useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
-import UsersProvider, { useUpdateUsers } from "../../contexts/UsersContext";
+import React, { useState } from "react";
+import { Outlet, redirect } from "react-router-dom";
 import { getUsersQuery } from "../../http/queries";
 import UsersCardContainer from "./UsersCardContainer";
+import SearchAppBar from "../global/SearchAppBar";
+import { handleException } from "../../utils/helper";
+import { useQuery } from "@tanstack/react-query";
+import CustomizedSnackbars from "../global/CustomizedSnackBar";
 
 export const loader = queryClient => async () => {
   try {
     let query = getUsersQuery();
-    let response =
-      queryClient.getQueryData("users") ??
-      (await queryClient.fetchQuery(query));
-    console.log(response);
-    return response;
-  } catch (e) {}
+    return (
+      queryClient.getQueryData(query.queryKey) ?? queryClient.fetchQuery(query)
+    );
+  } catch (e) {
+    handleException(e);
+    if (e?.response?.status === 401) {
+      return redirect("/login");
+    }
+    return e;
+  }
 };
 
-const Student = () => {
-  const { data: users } = useLoaderData();
-  const updateUsers = useUpdateUsers();
-  console.log(users);
+const Users = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const { data, isLoading } = useQuery(getUsersQuery());
+  const [openAlert, setOpenAlert] = useState(false);
 
-  useEffect(() => {
-    updateUsers(users);
-  }, [users, updateUsers]);
+  function handleSearch(e) {
+    const search = e.target.value;
+    setSearchTerm(search);
+  }
+
   return (
     <>
-      <Typography variant="h5">Users</Typography>
-      <UsersCardContainer />
+      <SearchAppBar
+        title="User"
+        search={searchTerm}
+        updateSearch={handleSearch}
+        navigateToCreate="/user/add"
+      />
+      <UsersCardContainer search={searchTerm} users={data?.data ?? []} />
+      <Outlet context={[openAlert, setOpenAlert]} />
+      <CustomizedSnackbars
+        open={openAlert}
+        setOpen={setOpenAlert}
+      ></CustomizedSnackbars>
     </>
   );
 };
 
-export default Student;
+export default Users;
