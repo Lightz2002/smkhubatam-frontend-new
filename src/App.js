@@ -1,7 +1,10 @@
 import { RouterProvider } from "react-router-dom";
-import router from "./router";
+import router, { queryClient } from "./router";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { UserProvider } from "./contexts/UserContext";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { QueryClientProvider } from "@tanstack/react-query";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function App() {
   const theme = createTheme({
@@ -14,9 +17,10 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <UserProvider>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={router}></RouterProvider>
-      </UserProvider>
+        <ReactQueryDevtools position="bottom-right" />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }
