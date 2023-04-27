@@ -14,6 +14,7 @@ const ModalForm = ({
   title,
   formAction,
   method = "post",
+  showEditButton = true,
 }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
@@ -25,14 +26,16 @@ const ModalForm = ({
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle sx={{ pb: 1, mb: 1 }}>{title}</DialogTitle>
       <Form action={formAction} method={method} encType="multipart/form-data">
-        <DialogContent>{children}</DialogContent>
+        <DialogContent sx={{ pt: 0, mt: 0 }}>{children}</DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button variant="contained" type="submit">
-            {method === "post" ? "Save Changes" : "Edit"}
-          </Button>
+          {showEditButton && (
+            <Button variant="contained" type="submit">
+              {method === "post" ? "Save Changes" : "Edit"}
+            </Button>
+          )}
         </DialogActions>
       </Form>
     </Dialog>
