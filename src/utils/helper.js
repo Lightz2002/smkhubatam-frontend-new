@@ -1,6 +1,9 @@
 import { purple, red, green, pink, blue } from "@mui/material/colors";
-import { UnauthenticatedException } from "./exception";
-import { useDropzone } from "react-dropzone";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import DangerousOutlinedIcon from "@mui/icons-material/DangerousOutlined";
+import ApprovalOutlinedIcon from "@mui/icons-material/ApprovalOutlined";
+import HourglassBottomOutlinedIcon from "@mui/icons-material/HourglassBottomOutlined";
+import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 
 export function getRandomInt(max) {
   return Math.floor(Math.random() * max);
@@ -55,4 +58,41 @@ export function stableSort(array, comparator) {
     return a[1] - b[1];
   });
   return stabilizedThis.map(el => el[0]);
+}
+
+export function getStatusStyle(name) {
+  const chipData = {
+    icon: "",
+    name,
+    color: "",
+  };
+
+  switch (chipData.name?.toLowerCase()) {
+    case "entry":
+      chipData.color = "secondary";
+      chipData.icon = <AssignmentIndOutlinedIcon />;
+      break;
+    case "verifying":
+      chipData.color = "info";
+      chipData.icon = <ApprovalOutlinedIcon />;
+      break;
+    case "ongoing":
+      chipData.color = "warning";
+      chipData.icon = <HourglassBottomOutlinedIcon />;
+      break;
+    case "completed":
+      chipData.color = "success";
+      chipData.icon = <CheckCircleOutlineIcon />;
+      break;
+    case "rejected":
+      chipData.color = "error";
+      chipData.icon = <DangerousOutlinedIcon />;
+      break;
+    default:
+      chipData.color = "error";
+      chipData.icon = <DangerousOutlinedIcon />;
+      break;
+  }
+
+  return chipData;
 }
