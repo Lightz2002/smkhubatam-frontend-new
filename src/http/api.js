@@ -214,6 +214,16 @@ export const createMajors = async () => {
   return response;
 };
 
+/* Status */
+export const getStatus = async () => {
+  let response = await client.get(`/status`, {
+    headers: {
+      Authorization: getToken(),
+    },
+  });
+  return response;
+};
+
 /* Internship */
 export const getInternships = async () => {
   let response = await client.get(`/internships`, {
@@ -249,6 +259,64 @@ export const createInternship = async credentials => {
 export const updateInternship = async (internshipId, credentials) => {
   let response = await client.put(
     `/internships/${internshipId}`,
+    { ...credentials },
+    {
+      headers: {
+        Authorization: getToken(),
+      },
+    }
+  );
+  return response;
+};
+
+/* Internship */
+export const getJournals = async () => {
+  let response = await client.get(`/journals`, {
+    headers: {
+      Authorization: getToken(),
+    },
+  });
+  return response;
+};
+
+export const getJournal = async journalId => {
+  let response = await client.get(`/journals/${journalId}`, {
+    headers: {
+      Authorization: getToken(),
+    },
+  });
+  return response;
+};
+
+export const createJournal = async credentials => {
+  let response = await client.post(
+    `/journals`,
+    { ...credentials },
+    {
+      headers: {
+        Authorization: getToken(),
+      },
+    }
+  );
+  return response;
+};
+
+export const updateJournal = async (journalId, credentials) => {
+  let response = await client.put(
+    `/journals/${journalId}`,
+    { ...credentials },
+    {
+      headers: {
+        Authorization: getToken(),
+      },
+    }
+  );
+  return response;
+};
+
+export const updateJournalStatus = async (journalId, credentials) => {
+  let response = await client.put(
+    `/journals/${journalId}/status`,
     { ...credentials },
     {
       headers: {

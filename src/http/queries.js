@@ -1,6 +1,8 @@
 import {
   getInternship,
   getInternships,
+  getJournal,
+  getJournals,
   getLocation,
   getLocations,
   getMajors,
@@ -8,6 +10,7 @@ import {
   getRoles,
   getSchoolClass,
   getSchoolClasses,
+  getStatus,
   getUser,
   getUsers,
   profile,
@@ -16,6 +19,14 @@ import {
 export const profileQuery = () => ({
   queryKey: ["user"],
   queryFn: () => profile(),
+  retry: (failureCount, error) => {
+    if (error.response.status === 401) {
+      // Don't retry if the response is 401 Unauthorized
+      return false;
+    }
+    // Retry up to 3 times for other types of errors
+    return failureCount < 1;
+  },
 });
 
 export const getRoleMenuQuery = roleId => ({
@@ -72,4 +83,19 @@ export const getInternshipsQuery = () => ({
 export const getInternshipQuery = internshipId => ({
   queryKey: ["internship", internshipId],
   queryFn: () => getInternship(internshipId),
+});
+
+export const getStatusQuery = () => ({
+  queryKey: ["status"],
+  queryFn: () => getStatus(),
+});
+
+export const getJournalsQuery = () => ({
+  queryKey: ["journals"],
+  queryFn: () => getJournals(),
+});
+
+export const getJournalQuery = journalId => ({
+  queryKey: ["journal", journalId],
+  queryFn: () => getJournal(journalId),
 });
