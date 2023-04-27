@@ -82,7 +82,6 @@ const LocationForm = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(locationId);
       setModalData({
         title: "Edit Location",
         closeNavigation: `/location/${locationId}`,
