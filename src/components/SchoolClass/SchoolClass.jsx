@@ -5,7 +5,7 @@ import { getSchoolClassesQuery } from "../../http/queries";
 import { useQuery } from "@tanstack/react-query";
 import { DataGrid } from "@mui/x-data-grid";
 import SearchAppBar from "../global/SearchAppBar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import CustomizedSnackbars from "../global/CustomizedSnackBar";
 
 export const loader = queryClient => async () => {
@@ -24,8 +24,12 @@ export const loader = queryClient => async () => {
 const SchoolClass = () => {
   const { data: schoolClasses, isLoading } = useQuery(getSchoolClassesQuery());
   const [openAlert, setOpenAlert] = useState(false);
+  const navigate = useNavigate();
 
-  console.log(schoolClasses);
+  function handleRowClick(rowId) {
+    navigate(`/class/${rowId}`);
+  }
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -36,13 +40,13 @@ const SchoolClass = () => {
       headerName: "Name",
       width: 160,
       valueGetter: params =>
-        `${params.row.Code || ""} ${params.row.Major?.Name || ""}`,
+        `${params.row.Code || ""} ${params.row.Major?.Code || ""}`,
     },
     {
       field: "Major.Name",
       headerName: "Major",
       width: 130,
-      valueGetter: params => `${params.row.Major?.Name || ""}`,
+      valueGetter: params => `${params.row.Major?.Code || ""}`,
     },
     {
       field: "Year",
@@ -57,7 +61,7 @@ const SchoolClass = () => {
         title="School Class"
         // search={searchTerm}
         // updateSearch={handleSearch}
-        navigateToCreate="/school-class/add"
+        navigateToCreate="/class/add"
       />
       <DataGrid
         rows={schoolClasses?.data ?? []}
@@ -66,6 +70,7 @@ const SchoolClass = () => {
         rowsPerPageOptions={[5]}
         checkboxSelection
         getRowId={row => row.Id}
+        onRowClick={({ row }) => handleRowClick(row.Id)}
       />
       <Outlet context={[openAlert, setOpenAlert]} />
       <CustomizedSnackbars
