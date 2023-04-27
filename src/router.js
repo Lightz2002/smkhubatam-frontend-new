@@ -31,14 +31,37 @@ import LocationDetail, {
   loader as locationLoader,
   action as locationAction,
 } from "./components/Location/LocationDetail";
-import Internship from "./components/Internship/Internship";
+import Internship, {
+  loader as internshipsLoader,
+} from "./components/Internship/Internship";
 import SchoolClass, {
   loader as schoolClassesLoader,
 } from "./components/SchoolClass/SchoolClass";
-import SchoolClassDetail, {
+import SchoolClassCreateForm, {
   loader as schoolClassLoader,
   action as schoolClassAction,
+} from "./components/SchoolClass/SchoolClassCreateForm";
+import SchoolClassDetail, {
+  loader as schoolClassDetailLoader,
+  action as schoolClassDetailAction,
 } from "./components/SchoolClass/SchoolClassDetail";
+import InternshipForm, {
+  action as internshipAddAction,
+} from "./components/Internship/InternshipForm";
+import InternshipDetail, {
+  loader as internshipLoader,
+  action as internshipAction,
+} from "./components/Internship/InternshipDetail";
+import Journal, {
+  loader as journalsLoader,
+  action as journalsAction,
+} from "./components/Journal/Journal";
+import JournalDetail, {
+  loader as journalLoader,
+} from "./components/Journal/JournalDetail";
+import JournalForm, {
+  action as journalAction,
+} from "./components/Journal/JournalForm";
 
 export const queryClient = new QueryClient();
 
@@ -102,21 +125,73 @@ const router = createBrowserRouter([
         loader: locationsLoader(queryClient),
       },
       {
-        path: "school-class",
+        path: "class",
         element: <SchoolClass />,
         loader: schoolClassesLoader(queryClient),
         children: [
           {
-            path: "/school-class/add",
-            element: <SchoolClassDetail />,
+            path: "/class/add",
+            element: <SchoolClassCreateForm />,
             loader: schoolClassLoader(queryClient),
             action: schoolClassAction(queryClient),
+          },
+          {
+            path: "/class/:schoolClassId",
+            element: <SchoolClassDetail />,
+            loader: schoolClassDetailLoader(queryClient),
+            action: schoolClassDetailAction(queryClient),
           },
         ],
       },
       {
         path: "internship",
         element: <Internship />,
+        loader: internshipsLoader(queryClient),
+        children: [
+          {
+            path: "/internship/add",
+            element: <InternshipForm />,
+            loader: internshipLoader(queryClient),
+            action: internshipAddAction(queryClient),
+          },
+          {
+            path: "/internship/:internshipId",
+            element: <InternshipDetail />,
+            loader: internshipLoader(queryClient),
+            action: internshipAction(queryClient),
+          },
+          {
+            path: "/internship/:internshipId/edit",
+            element: <InternshipForm />,
+            loader: internshipLoader(queryClient),
+            action: internshipAddAction(queryClient),
+          },
+        ],
+      },
+      {
+        path: "journal",
+        element: <Journal />,
+        loader: journalsLoader(queryClient),
+        action: journalsAction(queryClient),
+        children: [
+          {
+            path: "/journal/add",
+            element: <JournalForm />,
+            loader: journalLoader(queryClient),
+            action: journalAction(queryClient),
+          },
+          {
+            path: "/journal/:journalId/edit",
+            element: <JournalForm />,
+            loader: journalLoader(queryClient),
+            action: journalAction(queryClient),
+          },
+          {
+            path: "/journal/:journalId",
+            element: <JournalDetail />,
+            loader: journalLoader(queryClient),
+          },
+        ],
       },
     ],
     errorElement: <ErrorPage />,
