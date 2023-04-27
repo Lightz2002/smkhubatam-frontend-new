@@ -60,14 +60,14 @@ const Dashboard = () => {
     status,
   } = useQuery(getRoleMenuQuery(data1?.data?.Role?.Id));
 
-  const drawerWidth = 240;
+  const drawerWidth = 220;
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  if (error?.response?.status === 401) {
+  if (error?.response?.statusCode === 401) {
     queryClient.clear();
     navigate("/login");
   }
