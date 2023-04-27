@@ -101,7 +101,6 @@ const UserEditForm = () => {
   useEffect(() => {
     if (actionResponse?.status === 200) {
       queryClient.invalidateQueries("user", userId);
-      console.log(1);
       navigate(`/user/${userId}`);
       setOpenAlert(true);
     }
