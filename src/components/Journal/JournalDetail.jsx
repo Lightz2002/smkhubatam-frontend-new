@@ -102,6 +102,12 @@ const JournalDetail = () => {
                 variant="outlined"
               ></Chip>
             </Grid>
+            <Grid item xs={6}>
+              <Typography color="grey">Note</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              {journal?.data?.Note}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
