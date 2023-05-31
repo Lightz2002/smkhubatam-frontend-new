@@ -190,7 +190,7 @@ const UserDetail = props => {
                 <TextField
                   id="filled-read-only-input"
                   label="Intern Location"
-                  value={""}
+                  value={user?.data?.Internship?.Location?.Name ?? ""}
                   InputProps={{
                     readOnly: true,
                     disableUnderline: true,
