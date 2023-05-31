@@ -33,6 +33,7 @@ import LocationDetail, {
 } from "./components/Location/LocationDetail";
 import Internship, {
   loader as internshipsLoader,
+  action as internshipsAction,
 } from "./components/Internship/Internship";
 import SchoolClass, {
   loader as schoolClassesLoader,
@@ -147,6 +148,7 @@ const router = createBrowserRouter([
         path: "internship",
         element: <Internship />,
         loader: internshipsLoader(queryClient),
+        action: internshipsAction(queryClient),
         children: [
           {
             path: "/internship/add",

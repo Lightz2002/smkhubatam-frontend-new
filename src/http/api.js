@@ -269,6 +269,19 @@ export const updateInternship = async (internshipId, credentials) => {
   return response;
 };
 
+export const updateInternshipStatus = async (internshipId, credentials) => {
+  let response = await client.put(
+    `/internships/${internshipId}/status`,
+    { ...credentials },
+    {
+      headers: {
+        Authorization: getToken(),
+      },
+    }
+  );
+  return response;
+};
+
 /* Internship */
 export const getJournals = async () => {
   let response = await client.get(`/journals`, {
