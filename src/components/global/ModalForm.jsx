@@ -28,7 +28,7 @@ const ModalForm = ({
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle sx={{ pb: 1, mb: 1 }}>{title}</DialogTitle>
       <Form action={formAction} method={method} encType="multipart/form-data">
-        <DialogContent sx={{ pt: 0, mt: 0 }}>{children}</DialogContent>
+        <DialogContent sx={{ pt: 0, m: 0 }}>{children}</DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           {showEditButton && (
