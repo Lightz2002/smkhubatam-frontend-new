@@ -18,8 +18,14 @@ import {
 } from "@mui/material";
 import { handleException } from "../../utils/helper";
 import { getRolesQuery } from "../../http/queries";
-import { Form, redirect, useActionData, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import {
+  Form,
+  redirect,
+  useActionData,
+  useNavigate,
+  useOutletContext,
+} from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createUser } from "../../http/api";
 import ErrorText from "../global/ErrorText";
 import ModalForm from "../global/ModalForm";
@@ -45,7 +51,6 @@ export const action =
       const user = Object.fromEntries(formData);
 
       let response = await createUser(user);
-      queryClient.invalidateQueries("users");
       return response;
     } catch (e) {
       console.log(e);
@@ -63,9 +68,20 @@ export const action =
   };
 
 const UserCreateForm = () => {
+  const queryClient = useQueryClient();
   const errors = useActionData();
-  const navigate = useNavigate();
   const { data, isLoading } = useQuery(getRolesQuery());
+  const actionResponse = useActionData();
+  const navigate = useNavigate();
+  const [openAlert, setOpenAlert] = useOutletContext();
+
+  useEffect(() => {
+    if (actionResponse?.status === 201 || actionResponse?.status === 200) {
+      queryClient.invalidateQueries("users");
+      navigate("/user");
+      setOpenAlert(true);
+    }
+  }, [actionResponse]);
 
   const studentRole = data?.data?.filter(
     role => role.Name.toLowerCase() === "student"
