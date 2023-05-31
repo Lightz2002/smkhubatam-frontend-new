@@ -7,7 +7,7 @@ const LocationCardContainer = ({ locations, search }) => {
     location.Name.toLowerCase().includes(search.toLowerCase())
   );
   return (
-    <Grid container spacing={2} sx={{ py: 2 }}>
+    <Grid container spacing={2} sx={{ py: 2, pl: 1, m: 0, width: "100%" }}>
       {filteredLocations.map(location => (
         <LocationCard location={location} key={location?.Id} />
       ))}

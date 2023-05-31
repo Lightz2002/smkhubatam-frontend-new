@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getLocationsQuery } from "../../http/queries";
 import { Outlet } from "react-router-dom";
 import CustomizedSnackbars from "../global/CustomizedSnackBar";
+import { Box } from "@mui/material";
 export const loader = queryClient => async () => {
   try {
     const query = getLocationsQuery();
@@ -29,7 +30,7 @@ const Location = () => {
   };
 
   return (
-    <div>
+    <Box>
       <SearchAppBar
         title="Location"
         search={searchTerm}
@@ -42,7 +43,7 @@ const Location = () => {
         open={openAlert}
         setOpen={setOpenAlert}
       ></CustomizedSnackbars>
-    </div>
+    </Box>
   );
 };
 
