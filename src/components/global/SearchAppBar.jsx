@@ -15,7 +15,7 @@ export default function SearchAppBar({
   showAddButton = true,
 }) {
   return (
-    <Box sx={{ flexGrow: 1, m: 0, p: 0 }}>
+    <Box sx={{ flexGrow: 1, m: 0, py: 0.5 }}>
       <AppBar position="static" sx={{ background: "white" }} elevation={0}>
         <Toolbar>
           <Typography
