@@ -24,10 +24,18 @@ const DashboardMain = ({ drawerWidth }) => {
     // </Grid>
     <Box
       component="main"
-      sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+      sx={{
+        flexGrow: 1,
+        p: 3,
+        width: { sm: `calc(100% - ${drawerWidth}px)` },
+        backgroundColor: "#EEF2F6",
+        minHeight: "100vh",
+      }}
     >
       <Toolbar />
-      <Outlet />
+      <Box style={{ background: "white", minHeight: "90%" }}>
+        <Outlet />
+      </Box>
     </Box>
   );
 };

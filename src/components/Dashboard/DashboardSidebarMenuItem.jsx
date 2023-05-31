@@ -40,7 +40,7 @@ const DashboardSidebarMenuItem = ({ menu }) => {
   }
 
   return (
-    <ListItem disablePadding>
+    <ListItem>
       <ListItemButton sx={{ p: 0, m: 0 }}>
         <NavLink
           to={menu.Name.toLowerCase().replace(" ", "-")}
@@ -60,6 +60,7 @@ const DashboardSidebarMenuItem = ({ menu }) => {
                 py: 1,
                 pl: 2,
                 backgroundColor: isActive ? theme.palette.primary.dark : "",
+                borderRadius: 2,
               }}
             >
               <Box
@@ -92,6 +93,7 @@ const DashboardSidebarMenuItem = ({ menu }) => {
                       color: isActive
                         ? theme.palette.common.white
                         : theme.palette.primary.dark,
+                      fontSize: "0.8rem",
                     }}
                   >
                     {menu.Name || <Skeleton />}

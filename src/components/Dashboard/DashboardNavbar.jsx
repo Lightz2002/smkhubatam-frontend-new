@@ -1,9 +1,8 @@
-import { AppBar, Box, Toolbar, Button, Typography } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, Badge } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useTheme } from "@mui/material/styles";
-import { Form } from "react-router-dom";
 
 function DashboardNavbar({ user, drawerWidth, handleDrawerToggle }) {
   const theme = useTheme();
@@ -28,20 +27,7 @@ function DashboardNavbar({ user, drawerWidth, handleDrawerToggle }) {
         >
           <MenuIcon sx={{ color: theme.palette.primary.main }} />
         </IconButton>
-        <Box
-          sx={{
-            borderRadius: "50%",
-            width: 50,
-            height: 50,
-            backgroundColor: theme.palette.primary.main,
-            alignItems: "center",
-            justifyContent: "center",
-            display: "flex",
-            me: 5,
-          }}
-        >
-          <Typography>R</Typography>
-        </Box>
+
         <Box
           sx={{
             display: "flex",
@@ -85,10 +71,30 @@ function DashboardNavbar({ user, drawerWidth, handleDrawerToggle }) {
             {user?.Role?.Name ?? ""}
           </Typography>
         </Box>
-        <Box sx={{ ml: "auto" }}>
-          <Form method="post" action="/">
-            <Button type="submit">Logout</Button>
-          </Form>
+        <Box
+          sx={{
+            ml: "auto",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Badge badgeContent={4} color="secondary">
+            <NotificationsNoneIcon color="action" />
+          </Badge>
+          <Box
+            sx={{
+              borderRadius: "50%",
+              width: 35,
+              height: 35,
+              backgroundColor: theme.palette.primary.main,
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+              ml: 2,
+            }}
+          >
+            <Typography>R</Typography>
+          </Box>
         </Box>
       </Toolbar>
     </AppBar>
