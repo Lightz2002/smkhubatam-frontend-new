@@ -210,7 +210,7 @@ const UserEditForm = () => {
                 </FormLabel>
                 <RadioGroup
                   aria-labelledby="gender-label"
-                  defaultValue={user?.Gender ?? ""}
+                  defaultValue={user?.Gender?.toLowerCase() ?? ""}
                   name="Gender"
                   required
                   row
