@@ -15,9 +15,15 @@ const CreateButton = ({ children, navigateToCreate }) => {
       <Form action="/users">
         <Button
           variant="contained"
-          startIcon={<AddIcon />}
+          startIcon={<AddIcon sx={{ fontWeight: "bold" }} />}
           onClick={redirectTo}
-          sx={{ textTransform: "capitalize", width: { sx: 100, xs: 200 } }}
+          sx={{
+            textTransform: "capitalize",
+            width: { sx: 150, xs: 150 },
+            p: 1,
+            fontSize: "0.7rem",
+            fontWeight: "bold",
+          }}
         >
           New {children}
         </Button>
