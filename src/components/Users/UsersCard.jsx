@@ -1,7 +1,5 @@
 import React from "react";
 import { Card, CardHeader, Avatar, Grid, CardActionArea } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 
 const UsersCard = ({ user }) => {
@@ -30,8 +28,8 @@ const UsersCard = ({ user }) => {
             //     <MoreVertIcon />
             //   </IconButton>
             // }
-            title={user.Name}
-            subheader="September 14, 2016"
+            title={`${user.Name} - ${user.Username}`}
+            subheader={user?.Role?.Name}
           />
         </CardActionArea>
       </Card>
