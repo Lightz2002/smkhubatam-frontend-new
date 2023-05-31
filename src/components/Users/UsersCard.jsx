@@ -12,7 +12,7 @@ const UsersCard = ({ user }) => {
   };
 
   return (
-    <Grid item xs={6} md={4}>
+    <Grid item xs={6} md={3} style={{ pl: 0, px: 0 }}>
       <Card onClick={handleClick}>
         <CardActionArea>
           <CardHeader

@@ -8,7 +8,18 @@ const UsersCardContainer = ({ search, users }) => {
     .filter(user => user.Name.toLowerCase().includes(search.toLowerCase()))
     .map(user => ({ ...user, color: getRandomColor() }));
   return (
-    <Grid container spacing={2} sx={{ py: 2 }}>
+    <Grid
+      container
+      justify="space-between"
+      spacing={2}
+      sx={{
+        py: 2,
+        px: 2,
+        pl: "-2px",
+        m: 0,
+        width: "100%",
+      }}
+    >
       {filteredUsers.map(user => (
         <UsersCard user={user} key={user?.Id} />
       ))}
