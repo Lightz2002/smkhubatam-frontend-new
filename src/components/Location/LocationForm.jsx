@@ -12,6 +12,7 @@ import {
 import {
   useActionData,
   useLoaderData,
+  useNavigate,
   useOutletContext,
   useParams,
 } from "react-router-dom";
@@ -21,6 +22,7 @@ import { createLocation } from "../../http/api";
 import { useDropzone } from "react-dropzone";
 import CustomizedSnackBar from "../global/CustomizedSnackBar";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const action =
   queryClient =>
@@ -40,12 +42,14 @@ export const action =
 
 const LocationForm = () => {
   let { locationId } = useParams();
+  const queryClient = useQueryClient();
   const data = useLoaderData();
   const [image, setImage] = useState("");
   const [openAlert, setOpenAlert] = useOutletContext();
   const [imageError, setImageError] = useState("");
   const actionResponse = useActionData();
   const theme = useTheme();
+  const navigate = useNavigate();
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       "image/*": [],
@@ -75,7 +79,14 @@ const LocationForm = () => {
   });
 
   useEffect(() => {
-    if (actionResponse?.status === 200) {
+    if (actionResponse?.status === 200 || actionResponse?.status === 201) {
+      if (actionResponse?.status === 200) {
+        queryClient.invalidateQueries("location", locationId);
+      } else if (actionResponse?.status === 201) {
+        queryClient.invalidateQueries("locations");
+        navigate(`/location`);
+      }
+
       setOpenAlert(true);
     }
   }, [actionResponse]);
