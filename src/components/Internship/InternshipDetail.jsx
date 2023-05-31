@@ -76,6 +76,7 @@ const InternshipDetail = () => {
     <ModalForm
       closeNavigation="/internship"
       method="get"
+      title="View Internship"
       formAction={`/internship/${internshipId}/edit`}
     >
       <Grid container spacing={2}>

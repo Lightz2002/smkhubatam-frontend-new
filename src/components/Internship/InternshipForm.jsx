@@ -202,6 +202,9 @@ const InternshipForm = () => {
             getOptionLabel={option => option?.Name ?? ""}
             renderInput={params => <TextField {...params} label="Student" />}
             fullWidth
+            sx={{
+              pt: 1,
+            }}
           />
           <Input
             name="Student"
