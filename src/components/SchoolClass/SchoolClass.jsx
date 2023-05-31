@@ -58,7 +58,7 @@ const SchoolClass = () => {
   return (
     <Box sx={{ height: 400, width: "100%" }}>
       <SearchAppBar
-        title="School Class"
+        title="Class"
         // search={searchTerm}
         // updateSearch={handleSearch}
         navigateToCreate="/class/add"
