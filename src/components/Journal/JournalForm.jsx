@@ -65,7 +65,7 @@ const JournalForm = () => {
   const defaultRole = {
     closeNavigation: "/journal",
     formAction: "/journal/add",
-    title: "Add Journal",
+    title: "Create Journal",
   };
   const [modalData, setModalData] = useState(defaultRole);
   const params = useParams();
