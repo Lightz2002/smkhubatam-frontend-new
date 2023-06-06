@@ -18,6 +18,7 @@ import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 import MeetingRoomOutlinedIcon from "@mui/icons-material/MeetingRoomOutlined";
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
+import FolderCopyIcon from "@mui/icons-material/FolderCopy";
 
 const DashboardSidebarMenuItem = ({ menu }) => {
   const theme = useTheme();
@@ -34,6 +35,8 @@ const DashboardSidebarMenuItem = ({ menu }) => {
         return <MeetingRoomOutlinedIcon></MeetingRoomOutlinedIcon>;
       case "journal":
         return <BookOutlinedIcon></BookOutlinedIcon>;
+      case "files":
+        return <FolderCopyIcon></FolderCopyIcon>;
       default:
         return <CameraIcon></CameraIcon>;
     }
