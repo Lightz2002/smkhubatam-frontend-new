@@ -21,6 +21,7 @@ import {
   Tabs,
   Tab,
   Input,
+  Autocomplete,
 } from "@mui/material";
 import { handleException } from "../../utils/helper";
 import {
@@ -37,8 +38,10 @@ import { updateUser } from "../../http/api";
 import moment from "moment";
 import CustomizedSnackbars from "../global/CustomizedSnackBar";
 import { useDropzone } from "react-dropzone";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ModalForm from "../global/ModalForm";
+import { getSchoolClassesQuery } from "../../http/queries";
+import { cleanDigitSectionValue } from "@mui/x-date-pickers/internals/hooks/useField/useField.utils";
 
 export const action =
   queryClient =>
@@ -65,6 +68,9 @@ export const action =
 const UserEditForm = () => {
   const [openAlert, setOpenAlert] = useOutletContext();
   const queryClient = useQueryClient();
+  const [schoolClass, setSchoolClass] = useState({});
+  const [schoolClassInputValue, setSchoolClassInputValue] = useState("");
+  // const [schoolClasses, setSchoolClasses] = useState([]);
   let { userId } = useParams();
   const {
     roles: { data: roles },
@@ -73,6 +79,7 @@ const UserEditForm = () => {
   const [image, setImage] = useState(user.Image);
   const [imageError, setImageError] = useState("");
   const actionResponse = useActionData();
+  const { data: schoolClasses } = useQuery(getSchoolClassesQuery());
   const navigate = useNavigate();
   const theme = useTheme();
   const [tabsValue, setTabsValue] = useState(0);
@@ -105,6 +112,14 @@ const UserEditForm = () => {
       setOpenAlert(true);
     }
   }, [actionResponse]);
+
+  useEffect(() => {
+    if (user) {
+      setSchoolClass(user?.SchoolClass);
+    }
+  }, [user]);
+
+  console.log(schoolClass);
 
   const handleChange = (e, newValue) => {
     setTabsValue(newValue);
@@ -278,13 +293,36 @@ const UserEditForm = () => {
               />
             </Grid>
             <Grid item xs={6}>
-              <TextField
+              {/* <TextField
                 id="filled-read-only-input"
                 label="School Class"
                 name="SchoolClass"
                 defaultValue={user?.SchoolClass?.Code ?? "1"}
                 InputLabelProps={{ shrink: true }}
                 variant="outlined"
+                fullWidth
+              /> */}
+              <Autocomplete
+                value={schoolClass}
+                name="SchoolClass"
+                onChange={(event, newValue) => {
+                  setSchoolClass(newValue);
+                }}
+                inputValue={schoolClassInputValue}
+                onInputChange={(event, newInputValue) => {
+                  setSchoolClassInputValue(newInputValue);
+                }}
+                isOptionEqualToValue={option => {
+                  return option.Id === schoolClass?.Id;
+                }}
+                id="controllable-states-demo"
+                options={schoolClasses?.data ?? []}
+                getOptionLabel={option => {
+                  return option?.Code
+                    ? `${option?.Code} ${option?.Major?.Code} - ${option?.Year}`
+                    : "";
+                }}
+                renderInput={params => <TextField {...params} label="Class" />}
                 fullWidth
               />
             </Grid>
