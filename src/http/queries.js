@@ -1,4 +1,5 @@
 import {
+  getFolder,
   getInternship,
   getInternships,
   getJournal,
@@ -8,6 +9,7 @@ import {
   getMajors,
   getRoleMenu,
   getRoles,
+  getRootFolder,
   getSchoolClass,
   getSchoolClasses,
   getStatus,
@@ -98,4 +100,14 @@ export const getJournalsQuery = () => ({
 export const getJournalQuery = journalId => ({
   queryKey: ["journal", journalId],
   queryFn: () => getJournal(journalId),
+});
+
+export const getRootFilesQuery = () => ({
+  queryKey: ["files"],
+  queryFn: () => getRootFolder(),
+});
+
+export const getFolderQuery = folderId => ({
+  queryKey: ["folder", folderId],
+  queryFn: () => getFolder(folderId),
 });
