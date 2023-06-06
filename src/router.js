@@ -63,6 +63,14 @@ import JournalDetail, {
 import JournalForm, {
   action as journalAction,
 } from "./components/Journal/JournalForm";
+import Files, { loader as filesLoader } from "./components/Files/Files";
+import FolderChildren, {
+  loader as folderLoader,
+} from "./components/Files/FolderChildren";
+import FolderForm, {
+  action as folderAddAction,
+} from "./components/Files/FolderForm";
+import FileViewer from "./components/global/FileViewer";
 
 export const queryClient = new QueryClient();
 
@@ -194,6 +202,34 @@ const router = createBrowserRouter([
             loader: journalLoader(queryClient),
           },
         ],
+      },
+      {
+        path: "files",
+        element: <Files />,
+        loader: filesLoader(queryClient),
+        children: [
+          {
+            path: "/files/add",
+            element: <FolderForm />,
+            action: folderAddAction(queryClient),
+          },
+        ],
+      },
+      {
+        path: "files/:folderId",
+        element: <FolderChildren />,
+        loader: folderLoader(queryClient),
+        children: [
+          {
+            path: "/files/:folderId/add",
+            element: <FolderForm />,
+            action: folderAddAction(queryClient),
+          },
+        ],
+      },
+      {
+        path: "fileview",
+        element: <FileViewer />,
       },
     ],
     errorElement: <ErrorPage />,
