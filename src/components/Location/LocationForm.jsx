@@ -23,6 +23,7 @@ import { useDropzone } from "react-dropzone";
 import CustomizedSnackBar from "../global/CustomizedSnackBar";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useQueryClient } from "@tanstack/react-query";
+import NoPhotoContainer from "../global/NoPhotoContainer";
 
 export const action =
   queryClient =>
@@ -47,6 +48,7 @@ const LocationForm = () => {
   const [image, setImage] = useState("");
   const [openAlert, setOpenAlert] = useOutletContext();
   const [imageError, setImageError] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
   const actionResponse = useActionData();
   const theme = useTheme();
   const navigate = useNavigate();
@@ -127,30 +129,22 @@ const LocationForm = () => {
             <Input {...getInputProps()} />
             <Input name="Image" type="hidden" value={image} />
             {image ? (
-              <img
-                src={image}
-                alt="uploaded"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
+              isHovered ? (
+                <NoPhotoContainer setIsHovered={setIsHovered} />
+              ) : (
+                <img
+                  src={image}
+                  alt="uploaded"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                  onMouseEnter={() => setIsHovered(true)}
+                />
+              )
             ) : (
-              <Box
-                sx={{
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <CameraAltIcon
-                  sx={{ color: theme.palette.grey[600] }}
-                ></CameraAltIcon>
-                <Typography color="black">Upload Photo</Typography>
-              </Box>
+              <NoPhotoContainer setIsHovered={setIsHovered} />
             )}
           </Box>
         </Grid>
