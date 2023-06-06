@@ -11,7 +11,12 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SearchAppBar from "../global/SearchAppBar";
-import { DataGrid } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridToolbar,
+  GridToolbarContainer,
+  GridToolbarExport,
+} from "@mui/x-data-grid";
 import { getStatusStyle, handleException } from "../../utils/helper";
 import { getJournalsQuery } from "../../http/queries";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -50,6 +55,22 @@ export const action =
       return e;
     }
   };
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarExport
+        printOptions={{
+          hideFooter: true,
+          hideToolbar: true,
+        }}
+        sx={{
+          ml: "auto",
+        }}
+      />
+    </GridToolbarContainer>
+  );
+}
 
 const Journal = () => {
   const { data: journals, isLoading } = useQuery(getJournalsQuery());
@@ -114,12 +135,6 @@ const Journal = () => {
       valueGetter: params =>
         `${moment(params.row.Date).format("DD MMMM YYYY") || ""}`,
     },
-    // {
-    //   field: "Location",
-    //   headerName: "Location",
-    //   width: 130,
-    //   valueGetter: params => `${params.row.Location?.Name || ""}`,
-    // },
     {
       field: "Student",
       headerName: "Student",
@@ -132,14 +147,6 @@ const Journal = () => {
       width: 130,
       valueGetter: params => `${params.row.Absence || ""}`,
     },
-
-    // {
-    //   field: "AbsenceNote",
-    //   headerName: "Absence Note",
-    //   width: 130,
-    //   valueGetter: params => `${params.row.AbsenceNote || ""}`,
-    // },
-
     {
       field: "Status",
       headerName: "Status",
@@ -157,6 +164,11 @@ const Journal = () => {
           ></Chip>
         );
       },
+    },
+    {
+      field: "Note",
+      headerName: "Note",
+      width: 300,
     },
   ];
 
@@ -242,15 +254,23 @@ const Journal = () => {
         showAddButton={userRole === "student"}
         showSearchButton={false}
       />
+      {/* <Button>Print </Button> */}
       <DataGrid
         columns={columns}
         rows={journals?.data ?? []}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        checkboxSelection
+        // checkboxSelection
         getRowId={row => row.Id}
         onRowClick={({ row }) => handleRowClick(row.Id)}
         onCellClick={handleOnCellClick}
+        slots={{
+          toolbar: CustomToolbar,
+        }}
+        sx={{
+          px: 2,
+          py: 4,
+        }}
       />
       <Outlet context={[openAlert, setOpenAlert]} />
       <CustomizedSnackbars
