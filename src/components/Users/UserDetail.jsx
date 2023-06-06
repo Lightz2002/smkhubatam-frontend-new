@@ -177,7 +177,11 @@ const UserDetail = props => {
                 <TextField
                   id="filled-read-only-input"
                   label="School Class"
-                  value={user?.data?.SchoolClass?.Code ?? "1"}
+                  value={
+                    user?.data?.SchoolClass
+                      ? `${user?.data?.SchoolClass?.Code} ${user?.data?.SchoolClass?.Major?.Code}`
+                      : ""
+                  }
                   InputProps={{
                     readOnly: true,
                     disableUnderline: true,
