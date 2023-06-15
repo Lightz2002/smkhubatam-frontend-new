@@ -13,6 +13,7 @@ export default function SearchAppBar({
   navigateToCreate,
   showSearchButton = true,
   showAddButton = true,
+  createButton2 = <></>,
 }) {
   return (
     <Box sx={{ flexGrow: 1, m: 0, py: 0.5 }}>
@@ -38,6 +39,7 @@ export default function SearchAppBar({
               {title}
             </CreateButton>
           )}
+          {createButton2}
         </Toolbar>
       </AppBar>
     </Box>

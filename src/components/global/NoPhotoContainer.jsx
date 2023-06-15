@@ -1,8 +1,13 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import React from "react";
+import DescriptionIcon from "@mui/icons-material/Description";
 
-const NoPhotoContainer = ({ backgroundColor, setIsHovered }) => {
+const NoPhotoContainer = ({
+  setIsHovered,
+  text = "Drag n Drop or Click Here to Upload File",
+  type = "image",
+}) => {
   const theme = useTheme();
   return (
     <Box
@@ -15,8 +20,14 @@ const NoPhotoContainer = ({ backgroundColor, setIsHovered }) => {
       }}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <CameraAltIcon sx={{ color: theme.palette.grey[600] }}></CameraAltIcon>
-      <Typography color="black">Upload Photo</Typography>
+      {type === "image" ? (
+        <CameraAltIcon sx={{ color: theme.palette.grey[600] }}></CameraAltIcon>
+      ) : (
+        <DescriptionIcon sx={{ color: "grey" }} />
+      )}
+      <Typography textAlign="center" color="grey">
+        {text}
+      </Typography>
     </Box>
   );
 };
