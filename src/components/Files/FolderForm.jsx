@@ -36,6 +36,7 @@ const FolderForm = () => {
   const navigate = useNavigate();
   const [openAlert, setOpenAlert] = useOutletContext();
   const params = useParams();
+  const closeUrl = params?.folderId ? `/files/${params.folderId}` : "/files";
 
   useEffect(() => {
     if (actionResponse?.status === 201 || actionResponse?.status === 200) {
@@ -51,9 +52,9 @@ const FolderForm = () => {
 
   return (
     <ModalForm
-      closeNavigation="/files"
+      closeNavigation={closeUrl}
       title="Create Folder"
-      formAction="/files/add"
+      formAction={`${closeUrl}/addFolder`}
       method="post"
       showEditButton={true}
     >

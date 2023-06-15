@@ -335,3 +335,50 @@ export const createFolder = async credentials => {
     }
   );
 };
+
+export const updateFolderName = async credentials => {
+  return await client.put(
+    `/folder/${credentials?.Id}?rename=true`,
+    { ...credentials },
+    {
+      headers: {
+        Authorization: getToken(),
+      },
+    }
+  );
+};
+
+export const updateFileName = async credentials => {
+  return await client.put(
+    `/files/${credentials?.Id}?rename=true`,
+    { ...credentials },
+    {
+      headers: {
+        Authorization: getToken(),
+      },
+    }
+  );
+};
+
+export const uploadFile = async credentials => {
+  return await client.post(
+    `/files`,
+    { ...credentials },
+    {
+      headers: {
+        Authorization: getToken(),
+      },
+    }
+  );
+};
+
+export const deleteFile = async fileId => {
+  return await client.delete(
+    `/files/${fileId}`,
+    {
+      headers: {
+        Authorization: getToken(),
+      },
+    }
+  );
+};
