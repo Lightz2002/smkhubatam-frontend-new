@@ -8,7 +8,8 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import SchoolIcon from "@mui/icons-material/School";
+import Logo from "../../assets/logo.jpg";
+
 const DashboardSidebarTop = () => {
   const theme = useTheme();
   return (
@@ -18,18 +19,15 @@ const DashboardSidebarTop = () => {
           <Toolbar disableGutters>
             <Box
               sx={{
-                width: "70%",
+                width: "100%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                marginX: "auto",
               }}
             >
-              <SchoolIcon
-                sx={{ color: theme.palette.primary.dark }}
-              ></SchoolIcon>
-              <Typography sx={{ ml: 2, color: theme.palette.primary.dark }}>
-                SMK HU
-              </Typography>
+              <img src={Logo} alt="logo" width="50" height="50" />
+              <Typography sx={{ ml: 2 }}>SMK HU</Typography>
             </Box>
           </Toolbar>
         </Container>
