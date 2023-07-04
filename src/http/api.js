@@ -8,7 +8,7 @@ function getToken() {
 }
 
 const client = axios.create({
-  baseURL: "http://localhost:3030",
+  baseURL: "https://smkhu.vin.web.id",
 });
 
 export const profile = async () => {
@@ -373,12 +373,9 @@ export const uploadFile = async credentials => {
 };
 
 export const deleteFile = async fileId => {
-  return await client.delete(
-    `/files/${fileId}`,
-    {
-      headers: {
-        Authorization: getToken(),
-      },
-    }
-  );
+  return await client.delete(`/files/${fileId}`, {
+    headers: {
+      Authorization: getToken(),
+    },
+  });
 };

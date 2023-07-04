@@ -160,6 +160,7 @@ const Login = () => {
             label="Password"
             id="password"
             name="Password"
+            type="password"
             variant="outlined"
           />
         </Container>

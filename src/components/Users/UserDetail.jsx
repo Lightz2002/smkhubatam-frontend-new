@@ -190,19 +190,6 @@ const UserDetail = props => {
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  id="filled-read-only-input"
-                  label="Intern Location"
-                  value={user?.data?.Internship?.Location?.Name ?? ""}
-                  InputProps={{
-                    readOnly: true,
-                    disableUnderline: true,
-                  }}
-                  InputLabelProps={{ shrink: true }}
-                  variant="standard"
-                />
-              </Grid>{" "}
             </Grid>
           </Paper>
         </Grid>

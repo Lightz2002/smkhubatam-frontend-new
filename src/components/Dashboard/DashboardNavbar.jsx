@@ -78,9 +78,6 @@ function DashboardNavbar({ user, drawerWidth, handleDrawerToggle }) {
             alignItems: "center",
           }}
         >
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsNoneIcon color="action" />
-          </Badge>
           <Box
             sx={{
               borderRadius: "50%",
