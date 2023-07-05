@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   ListItem,
   ListItemButton,
   ListItemIcon,
@@ -17,15 +16,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 const LogoutButton = () => {
   const theme = useTheme();
-
-  const handleLogout = e => {
-    e.preventDefault();
-    console.log("e");
-    const form = document.getElementById("logoutForm");
-    form.dispatchEvent(new Event("submit"));
-    form.submit();
-  };
-
   return (
     <List>
       <ListItem>

@@ -1,7 +1,6 @@
-import { AppBar, Box, Toolbar, Typography, Badge } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useTheme } from "@mui/material/styles";
 
 function DashboardNavbar({ user, drawerWidth, handleDrawerToggle }) {

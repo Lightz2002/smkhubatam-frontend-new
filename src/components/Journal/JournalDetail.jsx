@@ -1,7 +1,6 @@
 import React from "react";
 import { getStatusStyle, handleException } from "../../utils/helper";
 import { getJournalQuery } from "../../http/queries";
-import { getJournal } from "../../http/api";
 import ModalForm from "../global/ModalForm";
 import { useParams } from "react-router-dom";
 import { Avatar, Chip, Grid, Typography } from "@mui/material";

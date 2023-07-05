@@ -7,20 +7,18 @@ import {
   ListItemText,
   Menu,
   MenuItem,
-  Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SearchAppBar from "../global/SearchAppBar";
 import {
   DataGrid,
-  GridToolbar,
   GridToolbarContainer,
   GridToolbarExport,
 } from "@mui/x-data-grid";
 import { getStatusStyle, handleException } from "../../utils/helper";
 import { getJournalsQuery } from "../../http/queries";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Form, Outlet, useActionData, useNavigate } from "react-router-dom";
+import { Outlet, useActionData, useNavigate } from "react-router-dom";
 import moment from "moment";
 import CustomizedSnackbars from "../global/CustomizedSnackBar";
 import DoneIcon from "@mui/icons-material/Done";
@@ -44,7 +42,6 @@ export const action =
   queryClient =>
   async ({ request }) => {
     try {
-      const errors = {};
       const formData = await request.formData();
       const data = Object.fromEntries(formData);
 
@@ -121,7 +118,7 @@ const Journal = () => {
       setOpenConfirmDialog(false);
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, queryClient]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -272,7 +269,7 @@ const Journal = () => {
           py: 4,
         }}
       />
-      <Outlet context={[openAlert, setOpenAlert]} />
+      <Outlet context={[setOpenAlert]} />
       <CustomizedSnackbars
         open={openAlert}
         setOpen={setOpenAlert}

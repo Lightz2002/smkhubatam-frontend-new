@@ -37,7 +37,6 @@ export const action =
   queryClient =>
   async ({ request }) => {
     try {
-      const errors = {};
       const formData = await request.formData();
       const data = Object.fromEntries(formData);
 
@@ -71,7 +70,7 @@ const Internship = () => {
       setOpenConfirmDialog(false);
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, queryClient]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -247,7 +246,7 @@ const Internship = () => {
         onRowClick={({ row }) => handleRowClick(row.Id)}
         onCellClick={handleOnCellClick}
       />
-      <Outlet context={[openAlert, setOpenAlert]} />
+      <Outlet context={[setOpenAlert]} />
       <CustomizedSnackbars
         open={openAlert}
         setOpen={setOpenAlert}

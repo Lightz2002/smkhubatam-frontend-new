@@ -84,6 +84,8 @@ const Login = () => {
     }
   }, [errors]);
 
+  console.log(data);
+
   return (
     <Container
       maxWidth="xs"

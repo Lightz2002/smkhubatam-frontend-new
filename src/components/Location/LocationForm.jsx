@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { handleException } from "../../utils/helper";
-import {
-  Box,
-  Container,
-  Grid,
-  Input,
-  TextField,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Grid, Input, TextField, useTheme } from "@mui/material";
 import {
   useActionData,
   useLoaderData,
@@ -21,7 +13,6 @@ import ModalForm from "../global/ModalForm";
 import { createLocation } from "../../http/api";
 import { useDropzone } from "react-dropzone";
 import CustomizedSnackBar from "../global/CustomizedSnackBar";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useQueryClient } from "@tanstack/react-query";
 import NoPhotoContainer from "../global/NoPhotoContainer";
 
@@ -91,7 +82,7 @@ const LocationForm = () => {
 
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, queryClient, navigate, locationId, setOpenAlert]);
 
   useEffect(() => {
     if (data) {
@@ -104,7 +95,7 @@ const LocationForm = () => {
 
       setImage(data.data.Image);
     }
-  }, [data]);
+  }, [data, locationId]);
 
   return (
     <ModalForm

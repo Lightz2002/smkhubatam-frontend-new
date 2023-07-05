@@ -1,6 +1,6 @@
 import { Box, CssBaseline } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { redirect, useLoaderData, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { redirect, useNavigate } from "react-router-dom";
 import UsersProvider from "../../contexts/UsersContext";
 import { handleException } from "../../utils/helper";
 import { getRoleMenuQuery, profileQuery } from "../../http/queries";
@@ -52,13 +52,10 @@ const Dashboard = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { data: data1, isLoading, error } = useQuery(profileQuery());
-  const {
-    data: data2,
-    isLoading: roleMenuIsLoading,
-    fetchStatus,
-    status,
-  } = useQuery(getRoleMenuQuery(data1?.data?.Role?.Id));
+  const { data: data1, error } = useQuery(profileQuery());
+  const { data: data2, isLoading: roleMenuIsLoading } = useQuery(
+    getRoleMenuQuery(data1?.data?.Role?.Id)
+  );
 
   const drawerWidth = 220;
   const [mobileOpen, setMobileOpen] = useState(false);

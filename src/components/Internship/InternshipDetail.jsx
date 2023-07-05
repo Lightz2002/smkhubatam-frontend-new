@@ -7,8 +7,7 @@ import {
 } from "../../http/queries";
 import ModalForm from "../global/ModalForm";
 import { useParams } from "react-router-dom";
-import { Avatar, Box, Chip, Grid, TextField, Typography } from "@mui/material";
-import { queryClient } from "../../router";
+import { Avatar, Chip, Grid, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 
 export const loader =

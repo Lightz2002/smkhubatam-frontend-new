@@ -9,7 +9,6 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography,
 } from "@mui/material";
 import {
   useActionData,
@@ -70,7 +69,7 @@ const JournalForm = () => {
   const [modalData, setModalData] = useState(defaultRole);
   const params = useParams();
   const queryClient = useQueryClient();
-  const [openAlert, setOpenAlert] = useOutletContext();
+  const [setOpenAlert] = useOutletContext();
 
   const journal = useLoaderData();
   const navigate = useNavigate();
@@ -97,7 +96,7 @@ const JournalForm = () => {
     return () => {
       setModalData(defaultRole);
     };
-  }, [journal]);
+  }, [journal, defaultRole, params?.journalId]);
 
   useEffect(() => {
     if (actionResponse?.status === 201) {
@@ -109,7 +108,7 @@ const JournalForm = () => {
       navigate(`/journal/${params.journalId}`);
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, navigate, queryClient, params.journalId, setOpenAlert]);
 
   return (
     <ModalForm

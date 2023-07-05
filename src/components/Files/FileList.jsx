@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   List,
   ListItem,
   ListItemText,
   ListItemIcon,
   ListItemButton,
-  Menu,
-  MenuItem,
   Input,
 } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
@@ -83,10 +81,6 @@ const FileList = ({
     );
   };
 
-  const handleCloseFolderMenus = () => {
-    setFolderContextMenu(null);
-  };
-
   const handleFileRightClick = (event, file) => {
     event.preventDefault();
     setSelectedFile(file);
@@ -101,10 +95,6 @@ const FileList = ({
           // With this behavior we prevent contextmenu from the backdrop to re-locale existing context menus.
           null
     );
-  };
-
-  const handleCloseFileMenus = () => {
-    setFileContextMenu(null);
   };
 
   const handleSelectedMenu = (menu, name) => {

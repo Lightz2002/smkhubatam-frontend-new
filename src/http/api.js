@@ -1,5 +1,4 @@
 import axios from "axios";
-import { redirect } from "react-router-dom";
 
 function getToken() {
   return localStorage.getItem("token")

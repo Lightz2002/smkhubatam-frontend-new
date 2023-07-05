@@ -24,7 +24,7 @@ export const loader = queryClient => async () => {
 
 const Users = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { data, isLoading } = useQuery(getUsersQuery());
+  const { data } = useQuery(getUsersQuery());
   const [openAlert, setOpenAlert] = useState(false);
 
   function handleSearch(e) {
@@ -41,7 +41,7 @@ const Users = () => {
         navigateToCreate="/user/add"
       />
       <UsersCardContainer search={searchTerm} users={data?.data ?? []} />
-      <Outlet context={[openAlert, setOpenAlert]} />
+      <Outlet context={[setOpenAlert]} />
       <CustomizedSnackbars
         open={openAlert}
         setOpen={setOpenAlert}

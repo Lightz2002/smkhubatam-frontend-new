@@ -72,7 +72,7 @@ const SchoolClass = () => {
         getRowId={row => row.Id}
         onRowClick={({ row }) => handleRowClick(row.Id)}
       />
-      <Outlet context={[openAlert, setOpenAlert]} />
+      <Outlet context={[setOpenAlert]} />
       <CustomizedSnackbars
         open={openAlert}
         setOpen={setOpenAlert}

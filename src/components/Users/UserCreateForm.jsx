@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
+import React, { useEffect } from "react";
 import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import {
   FormControl,
   FormControlLabel,
@@ -19,7 +14,6 @@ import {
 import { handleException } from "../../utils/helper";
 import { getRolesQuery } from "../../http/queries";
 import {
-  Form,
   redirect,
   useActionData,
   useNavigate,
@@ -70,10 +64,10 @@ export const action =
 const UserCreateForm = () => {
   const queryClient = useQueryClient();
   const errors = useActionData();
-  const { data, isLoading } = useQuery(getRolesQuery());
+  const { data } = useQuery(getRolesQuery());
   const actionResponse = useActionData();
   const navigate = useNavigate();
-  const [openAlert, setOpenAlert] = useOutletContext();
+  const [setOpenAlert] = useOutletContext();
 
   useEffect(() => {
     if (actionResponse?.status === 201 || actionResponse?.status === 200) {
@@ -81,7 +75,7 @@ const UserCreateForm = () => {
       navigate("/user");
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, navigate, queryClient, setOpenAlert]);
 
   const studentRole = data?.data?.filter(
     role => role.Name.toLowerCase() === "student"

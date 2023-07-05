@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import {
   FormControl,
   FormControlLabel,
@@ -25,8 +20,6 @@ import {
 } from "@mui/material";
 import { handleException } from "../../utils/helper";
 import {
-  Form,
-  redirect,
   useActionData,
   useLoaderData,
   useNavigate,
@@ -36,12 +29,10 @@ import {
 import ErrorText from "../global/ErrorText";
 import { updateUser } from "../../http/api";
 import moment from "moment";
-import CustomizedSnackbars from "../global/CustomizedSnackBar";
 import { useDropzone } from "react-dropzone";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ModalForm from "../global/ModalForm";
 import { getSchoolClassesQuery } from "../../http/queries";
-import { cleanDigitSectionValue } from "@mui/x-date-pickers/internals/hooks/useField/useField.utils";
 
 export const action =
   queryClient =>
@@ -66,11 +57,10 @@ export const action =
   };
 
 const UserEditForm = () => {
-  const [openAlert, setOpenAlert] = useOutletContext();
+  const [setOpenAlert] = useOutletContext();
   const queryClient = useQueryClient();
   const [schoolClass, setSchoolClass] = useState({});
   const [schoolClassInputValue, setSchoolClassInputValue] = useState("");
-  // const [schoolClasses, setSchoolClasses] = useState([]);
   let { userId } = useParams();
   const {
     roles: { data: roles },
@@ -111,7 +101,7 @@ const UserEditForm = () => {
       navigate(`/user/${userId}`);
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, queryClient, setOpenAlert, userId, navigate]);
 
   useEffect(() => {
     if (user) {

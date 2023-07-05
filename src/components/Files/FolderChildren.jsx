@@ -3,10 +3,9 @@ import { handleException } from "../../utils/helper";
 import { Outlet, redirect, useActionData, useParams } from "react-router-dom";
 import { getFolderQuery } from "../../http/queries";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Box, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
 import SearchAppBar from "../global/SearchAppBar";
 import FileList from "./FileList";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CustomizedSnackbars from "../global/CustomizedSnackBar";
 import FileViewer from "../global/FileViewer";
 import CreateButton from "../global/CreateButton";
@@ -51,7 +50,7 @@ const FolderChildren = () => {
       setOpenRenameFolderForm(false);
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, queryClient, params?.folderId]);
 
   const handleSearch = e => {
     const search = e.target.value;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ModalForm from "../global/ModalForm";
 import {
   FormControl,
@@ -72,7 +72,7 @@ const SchoolClassDetail = () => {
     getSchoolClassQuery(schoolClassId)
   );
 
-  const [openAlert, setOpenAlert] = useOutletContext();
+  const [setOpenAlert] = useOutletContext();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const actionResponse = useActionData();
@@ -83,7 +83,7 @@ const SchoolClassDetail = () => {
       navigate("/class");
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, queryClient, navigate, setOpenAlert]);
 
   if (isLoading) {
     return <div>Loading...</div>;

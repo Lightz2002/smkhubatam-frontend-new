@@ -87,7 +87,7 @@ const Files = () => {
       setOpenRenameFolderForm(false);
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, queryClient]);
 
   return (
     <Box>
@@ -114,7 +114,7 @@ const Files = () => {
         openConfirmationDialog={openConfirmationDialog}
         setOpenConfirmationDialog={setOpenConfirmationDialog}
       />
-      <Outlet context={[openAlert, setOpenAlert]} />
+      <Outlet context={[setOpenAlert]} />
       <CustomizedSnackbars
         open={openAlert}
         setOpen={setOpenAlert}

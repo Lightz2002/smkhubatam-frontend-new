@@ -50,7 +50,7 @@ const FileForm = () => {
 
   const [fileError, setFileError] = useState("");
   const actionResponse = useActionData();
-  const [openAlert, setOpenAlert] = useOutletContext();
+  const [setOpenAlert] = useOutletContext();
 
   useEffect(() => {
     if (actionResponse?.status === 201 || actionResponse?.status === 200) {
@@ -59,7 +59,7 @@ const FileForm = () => {
         ? navigate(`/files/${params.folderId}`)
         : navigate("/files");
     }
-  }, [actionResponse]);
+  }, [actionResponse, navigate, params.folderId, setOpenAlert]);
 
   const { getRootProps, getInputProps } = useDropzone({
     maxSize: 500000,

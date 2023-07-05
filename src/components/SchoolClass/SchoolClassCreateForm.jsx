@@ -13,7 +13,6 @@ import { getMajorsQuery } from "../../http/queries";
 import { handleException } from "../../utils/helper";
 import { createSchoolClass } from "../../http/api";
 import { useActionData, useNavigate, useOutletContext } from "react-router-dom";
-import { Code } from "@mui/icons-material";
 
 export const loader = queryClient => async () => {
   try {
@@ -51,7 +50,7 @@ export const action =
 
 const SchoolClassCreateForm = () => {
   const { data: majors } = useQuery(getMajorsQuery());
-  const [openAlert, setOpenAlert] = useOutletContext();
+  const [setOpenAlert] = useOutletContext();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const actionResponse = useActionData();
@@ -62,7 +61,7 @@ const SchoolClassCreateForm = () => {
       navigate("/class");
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, queryClient, navigate, setOpenAlert]);
 
   let defaultMajor = "";
 

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
@@ -21,7 +20,7 @@ export default function CustomizedSnackbars({ open = false, setOpen }) {
     setTimeout(() => {
       setOpen(false);
     }, 3000);
-  }, []);
+  }, [setOpen]);
 
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
@@ -35,10 +34,6 @@ export default function CustomizedSnackbars({ open = false, setOpen }) {
           Data updated successfully !
         </Alert>
       </Snackbar>
-      {/* <Alert severity="error">This is an error message!</Alert> */}
-      {/* <Alert severity="warning">This is a warning message!</Alert> */}
-      {/* <Alert severity="info">This is an information message!</Alert> */}
-      {/* <Alert severity="success">This is a success message!</Alert> */}
     </Stack>
   );
 }

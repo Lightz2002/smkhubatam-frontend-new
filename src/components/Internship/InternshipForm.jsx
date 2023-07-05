@@ -4,7 +4,7 @@ import { Autocomplete, Grid, Input, TextField } from "@mui/material";
 import { handleException } from "../../utils/helper";
 import { getLocationsQuery, getUsersQuery } from "../../http/queries";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { createInternship, getUser, updateInternship } from "../../http/api";
+import { createInternship, updateInternship } from "../../http/api";
 import {
   useActionData,
   useLoaderData,
@@ -12,40 +12,6 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
-
-// export const loader =
-//   queryClient =>
-//   async ({ params }) => {
-//     try {
-//       const usersQuery = getUsersQuery();
-//       const users =
-//         queryClient.getQueryData(usersQuery.queryKey) ??
-//         queryClient.fetchQuery(usersQuery);
-
-//       const locationsQuery = getLocationsQuery();
-//       const locations =
-//         queryClient.getQueryData(locationsQuery.queryKey) ??
-//         queryClient.fetchQuery(locationsQuery);
-
-//       let internship = {};
-
-//       if (params?.internshipId) {
-//         const internshipQuery = getInternshipQuery(params.internshipId);
-//         internship =
-//           queryClient.getQueryData(internshipQuery.queryKey) ??
-//           queryClient.fetchQuery(internshipQuery);
-//       }
-
-//       return {
-//         users,
-//         locations,
-//         internship,
-//       };
-//     } catch (e) {
-//       handleException(e);
-//       return e;
-//     }
-//   };
 
 export const action =
   queryClient =>
@@ -74,7 +40,7 @@ const InternshipForm = () => {
   const actionResponse = useActionData();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const [openAlert, setOpenAlert] = useOutletContext();
+  const [setOpenAlert] = useOutletContext();
   const { data: users } = useQuery(getUsersQuery());
   const { data: locations } = useQuery(getLocationsQuery());
   const [student, setStudent] = useState("");
@@ -143,7 +109,7 @@ const InternshipForm = () => {
       navigate("/internship");
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, navigate, queryClient, setOpenAlert]);
 
   useEffect(() => {
     async function fillEditData() {
@@ -172,7 +138,7 @@ const InternshipForm = () => {
       setLocation("");
       setModalData(defaultModalData);
     };
-  }, [internship]);
+  }, [internship, defaultModalData, params.internshipId]);
 
   if (comboIsLoading) {
     return;

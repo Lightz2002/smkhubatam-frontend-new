@@ -1,7 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import router, { queryClient } from "./router";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { UserProvider } from "./contexts/UserContext";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClientProvider } from "@tanstack/react-query";
 import "react-loading-skeleton/dist/skeleton.css";

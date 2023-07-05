@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { getRolesQuery, getUserQuery } from "../../http/queries";
 import { handleException } from "../../utils/helper";
 import {
@@ -10,7 +10,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment/moment";
 import ModalForm from "../global/ModalForm";
@@ -44,14 +44,13 @@ export const loader =
   };
 
 const UserDetail = props => {
-  const navigate = useNavigate();
   let { userId } = useParams();
   const { data: user } = useQuery(getUserQuery(userId));
   const { data: roles } = useQuery(getRolesQuery());
   const theme = useTheme();
   const firstLetterOfName = user?.data?.Name[0].toUpperCase();
-  const [openAlert, setOpenAlert] = useOutletContext();
 
+  console.log(roles);
   return (
     <ModalForm
       title="User Detail"

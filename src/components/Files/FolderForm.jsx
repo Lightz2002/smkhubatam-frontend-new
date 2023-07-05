@@ -34,7 +34,7 @@ const FolderForm = () => {
   const actionResponse = useActionData();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const [openAlert, setOpenAlert] = useOutletContext();
+  const [setOpenAlert] = useOutletContext();
   const params = useParams();
   const closeUrl = params?.folderId ? `/files/${params.folderId}` : "/files";
 
@@ -48,7 +48,7 @@ const FolderForm = () => {
       }
       setOpenAlert(true);
     }
-  }, [actionResponse]);
+  }, [actionResponse, queryClient, navigate, params?.folderId, setOpenAlert]);
 
   return (
     <ModalForm

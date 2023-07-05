@@ -11,8 +11,6 @@ function DashboardSidebar({
   mobileOpen,
   loading,
 }) {
-  const theme = useTheme();
-
   const drawer = (
     <div>
       <DashboardSidebarTop />
