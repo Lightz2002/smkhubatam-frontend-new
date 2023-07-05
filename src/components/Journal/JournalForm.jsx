@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { handleException } from "../../utils/helper";
 import ModalForm from "../global/ModalForm";
 import {
@@ -61,11 +61,15 @@ export const action =
   };
 
 const JournalForm = () => {
-  const defaultRole = {
-    closeNavigation: "/journal",
-    formAction: "/journal/add",
-    title: "Create Journal",
-  };
+  const defaultRole = useMemo(
+    () => ({
+      closeNavigation: "/journal",
+      formAction: "/journal/add",
+      title: "Create Journal",
+    }),
+    []
+  ); // <-- Empty dependency array indicates that it should only be initialized once
+
   const [modalData, setModalData] = useState(defaultRole);
   const params = useParams();
   const queryClient = useQueryClient();

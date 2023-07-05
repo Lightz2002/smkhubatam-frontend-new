@@ -6,12 +6,10 @@ import {
   Container,
   Grid,
   Typography,
-  useTheme,
 } from "@mui/material";
 import Logo from "../../assets/logo.jpg";
 
 const DashboardSidebarTop = () => {
-  const theme = useTheme();
   return (
     <Grid item>
       <AppBar position="static" color="bg" elevation={0}>

@@ -1,4 +1,4 @@
-import { useTheme, Box, Divider, Drawer } from "@mui/material";
+import { Box, Divider, Drawer } from "@mui/material";
 import DashboardSidebarMenu from "./DashboardSidebarMenu";
 import DashboardSidebarTop from "./DashboardSidebarTop";
 import LogoutButton from "../global/LogoutButton";

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ModalForm from "../global/ModalForm";
 import { Autocomplete, Grid, Input, TextField } from "@mui/material";
 import { handleException } from "../../utils/helper";
@@ -58,11 +58,15 @@ const InternshipForm = () => {
   const [year, setYear] = useState();
   const { internship } = useLoaderData();
   const params = useParams();
-  let defaultModalData = {
-    closeNavigation: "/internship",
-    title: "Create Internship",
-    formAction: "/internship/add",
-  };
+  const defaultModalData = useMemo(
+    () => ({
+      closeNavigation: "/internship",
+      title: "Create Internship",
+      formAction: "/internship/add",
+    }),
+    []
+  ); // <-- Empty dependency array indicates that it should only be initialized once
+
   const [modalData, setModalData] = useState(defaultModalData);
 
   useEffect(() => {
