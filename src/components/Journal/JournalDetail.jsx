@@ -50,8 +50,8 @@ const JournalDetail = () => {
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <img
-            src={journal?.data?.Internship?.Location?.Image}
-            alt={journal?.data?.Internship?.Location?.Name}
+            src={journal?.data?.Student?.Internship?.Location?.Image}
+            alt={journal?.data?.Student?.Internship?.Location?.Name}
             width="100%"
           />
         </Grid>
