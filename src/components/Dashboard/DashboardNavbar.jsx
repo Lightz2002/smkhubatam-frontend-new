@@ -89,7 +89,9 @@ function DashboardNavbar({ user, drawerWidth, handleDrawerToggle }) {
               ml: 2,
             }}
           >
-            <Typography>R</Typography>
+            <Typography>
+              {user?.Name ? user?.Name[0].toUpperCase() : ""}
+            </Typography>
           </Box>
         </Box>
       </Toolbar>
