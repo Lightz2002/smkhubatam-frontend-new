@@ -27,7 +27,7 @@ export const loader = queryClient => async () => {
     }
 
     if (data?.status === 200) {
-      return redirect("/");
+      return redirect("/journal");
     }
     return {
       status: 401,
@@ -57,7 +57,7 @@ export const action =
         const res = await login(credentials);
         if (res.status === 201) {
           localStorage.setItem("token", res.data.access_token);
-          return redirect("/");
+          return redirect("/journal");
         }
       }
       return errors;
