@@ -74,7 +74,7 @@ const Login = () => {
   const theme = useTheme();
   const [openAlert, setOpenAlert] = useState(false);
   const { data } = useQuery(profileQuery());
-
+  console.log(data);
   const closeAlert = () => {
     errors = {};
     setOpenAlert(false);
